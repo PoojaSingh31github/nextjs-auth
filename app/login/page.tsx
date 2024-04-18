@@ -6,13 +6,16 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginFailure, loginStart, loginSuccess } from "../GlobalRedux/auth/authSlice";
+import {
+  loginFailure,
+  loginStart,
+  loginSuccess,
+} from "../GlobalRedux/auth/authSlice";
 
 const LoginPage = () => {
   const router = useRouter();
- const dispatch = useDispatch();
- const { isLoading, error } = useSelector((state: any) => state.auth);
-
+  const dispatch = useDispatch();
+  const { isLoading, error, user } = useSelector((state: any) => state.auth);
   const [data, setData] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -35,23 +38,23 @@ const LoginPage = () => {
       const res = await axios.post("/api/login", formData);
       if (res.status === 200) {
         const userdata = res.data.user;
-         dispatch(loginSuccess(userdata));
+        dispatch(loginSuccess(userdata));
+
         console.log(userdata);
         // setData(res.data.user);
         if (userdata) {
-          router.push(`/?user=${userdata.Name}&email=${userdata.email}&password=${userdata.Password}`)}
+          router.push(`/`);
         }
-      
+      }
     } catch (error) {
-        dispatch(loginFailure(error));
+      dispatch(loginFailure(error));
       console.error("Error saving AuthDetails:", error);
     }
   };
-  console.log("login data ", data);
 
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <form onSubmit={handleSubmit} className="container p-5">
         <Input
           inputkey={"email"}

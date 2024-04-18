@@ -22,7 +22,7 @@ export default function Input({
       </label>
       <input
         placeholder={inputPlaceholder}
-        className="w-full bg-gray-300 rounded-md border-gray-700 text-white px-2 py-1"
+        className="w-full bg-gray-300 rounded-md border-gray-700 text-black px-2 py-1"
         id={inputkey}
         name={inputkey}
         type={inputType}
