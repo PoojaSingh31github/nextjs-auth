@@ -1,11 +1,20 @@
 "use server";
-import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  setDoc,
+  startAfter,
+} from "firebase/firestore";
 import { auth, db } from "./firebase";
 import { AuthDetails } from "./authInfo";
 import { cookies } from "next/headers";
 import { signOut } from "firebase/auth";
 import jwt from "jsonwebtoken";
-
 
 export async function saveAuthDetails(authDetails: AuthDetails) {
   console.log(authDetails);
@@ -21,9 +30,9 @@ export async function saveAuthDetails(authDetails: AuthDetails) {
 }
 
 export async function removeCookies() {
-   cookies().delete("myCookie");
-   const signout = await signOut(auth);
-   console.log(signout);
+  cookies().delete("myCookie");
+  const signout = await signOut(auth);
+  console.log(signout);
 }
 
 export async function getCokkies() {
@@ -34,8 +43,41 @@ export async function getCokkies() {
   if (myCookie?.value) {
     decoded = jwt.verify(myCookie?.value, "secret");
   }
-  return decoded
+  return decoded;
 }
 
+export async function getDocsData(lastDoc?: any) {
+  try {
+    const docRef = collection(db, "auth");
 
+    let data: any[] = [];
+    let nextFunc: any;
+    let lastDocument: any = null;
 
+    if (lastDoc) {
+      nextFunc = startAfter(lastDoc.Name);
+    }
+
+    const funcData = query(
+      docRef,
+      orderBy("Name"),
+      ...(lastDoc ? [nextFunc] : []),
+      limit(4)
+    );
+
+    const documentSnapshots = await getDocs(funcData);
+
+    if (documentSnapshots.docs.length > 0) {
+      documentSnapshots.forEach((doc) => {
+        data.push(doc.data());
+      });
+      lastDocument =
+        documentSnapshots.docs[documentSnapshots.docs.length - 1].data();
+    }
+
+    return { data, lastDocument };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

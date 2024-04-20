@@ -1,7 +1,7 @@
 type Props = {
   inputkey: string;
   inputPlaceholder: string;
-  inputType: string;
+  inputType: string ;
   inputValue: any;
   inputLable: string;
   onchange: (e: any) => void;

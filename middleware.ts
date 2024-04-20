@@ -3,9 +3,9 @@ import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  console.log("middleware executed");
+  // console.log("middleware executed");
   const authToken = request.cookies.get("myCookie")?.value;
-  console.log("our auth token is:", authToken);
+  // console.log("our auth token is:", authToken);
 
   const loggedin =
     request.nextUrl.pathname === "/login" ||

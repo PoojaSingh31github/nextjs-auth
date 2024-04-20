@@ -5,7 +5,6 @@ import React from "react";
 import { removeCookies } from "@/lib";
 
 export const Navbar = () => {
-  // const router = useRouter();
   const hadleLogout = async () => {
  await removeCookies()
 }
