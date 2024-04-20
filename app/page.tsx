@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCokkies, getDocsData } from "@/lib";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="w-full h-screen bg-gray-300">
+      <div className=" h-screen bg-gray-300 items-center">
         <ul>
           {data ? (
             <>
@@ -52,15 +53,9 @@ export default function Home() {
             </>
           ) : null}
         </ul>
-
-        {/* <button onClick={paginateValue}>paginateee</button>
-        {paginatedData && paginatedData.data && (
-          <ul>
-            {paginatedData.Name.map((item: any, index: any) => (
-              <li key={index}>Name: {item.Name}</li>
-            ))}
-          </ul>
-        )} */}
+        <button className="cursor-pointer flex items-center fill-lime-400 bg-lime-300 hover:bg-lime-200 active:border active:border-lime-400 rounded-md duration-100 p-2 mt-6">
+          <Link href="/scroll"> check all users</Link>
+        </button>
       </div>
     </>
   );
