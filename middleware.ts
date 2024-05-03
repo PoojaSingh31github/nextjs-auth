@@ -9,7 +9,8 @@ export async function middleware(request: NextRequest) {
 
   const loggedin =
     request.nextUrl.pathname === "/login" ||
-    request.nextUrl.pathname === "/signup";
+    request.nextUrl.pathname === "/signup" ||
+    request.nextUrl.pathname === "/loginWithPhone";
 
   if (loggedin) {
     if (authToken) {

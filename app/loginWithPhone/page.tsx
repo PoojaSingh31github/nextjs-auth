@@ -1,23 +1,15 @@
 "use client";
 import { auth } from "@/lib/firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {  useState } from "react";
 import Input from "@/components/input";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import Router from "next/router";
 
 export default function PhoneLogin() {
-  const [number, setNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [result, setResult] = useState(null);
-  const [otpSent, setOtpSent] = useState(false);
-  const router = useRouter();
-  const [value, setValue] = useState('');
-  console.log(value);
-
-  let confirmedResult: any;
-  
+  const [value, setValue] = useState("+918130140259");
 
   const sendOTP = async () => {
     try {
@@ -26,37 +18,32 @@ export default function PhoneLogin() {
         "recaptcha-container",
         {}
       );
-      console.log(value);
 
       const confirmation = await signInWithPhoneNumber(
         auth,
         value,
         recaptchaVerifier
       );
- confirmedResult = confirmation;
+      (window as any).confirmedResult = confirmation;
 
-      console.log(confirmation);
+      console.log("confirm", (window as any).confirmedResult);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const verifyOTP = async() => {
-     confirmedResult
+  const verifyOTP = async () => {
+    (window as any).confirmedResult
       .confirm(otp)
       .then((result: any) => {
         // User signed in successfully.
         const user = result.user;
-        // ...
+        Router.push("/")
+        console.log(user);
       })
       .catch((error: unknown) => {
         console.log(error);
-        // User couldn't sign in (bad verification code?)
-        // ...
       });
-  }
-  const handlePhoneNumberChange = (e: any) => {
-    setValue(e.target.value);
   };
 
   const handleOpt = (e: any) => {
@@ -65,14 +52,6 @@ export default function PhoneLogin() {
 
   return (
     <div>
-      {/* <Input
-        inputkey={"phone"}
-        inputPlaceholder={"Enter your Phone Number"}
-        inputType={"number"}
-        inputValue={value}
-        inputLable={"phone Number"}
-        onchange={handlePhoneNumberChange}
-      /> */}
       <PhoneInput
         country={"in"}
         value={String(value)}
@@ -81,8 +60,7 @@ export default function PhoneLogin() {
 
       <button onClick={sendOTP}>send OTP</button>
       <div id="recaptcha-container"></div>
-      
-      {/* <textarea name="" id="" cols="30" rows="1"></textarea> */}
+
       <Input
         inputkey={""}
         inputPlaceholder={"Enter OPT here"}
