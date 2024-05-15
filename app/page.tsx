@@ -56,6 +56,15 @@ export default function Home() {
         <button className="cursor-pointer flex items-center fill-lime-400 bg-lime-300 hover:bg-lime-200 active:border active:border-lime-400 rounded-md duration-100 p-2 mt-6">
           <Link href="/scroll"> check all users</Link>
         </button>
+        <button className="cursor-pointer flex items-center fill-lime-400 bg-lime-300 hover:bg-lime-200 active:border active:border-lime-400 rounded-md duration-100 p-2 mt-6">
+          <Link href="/hotelRoom"> hotel room</Link>
+        </button>
+        <button className="cursor-pointer flex items-center fill-lime-400 bg-lime-300 hover:bg-lime-200 active:border active:border-lime-400 rounded-md duration-100 p-2 mt-6">
+          <Link href="/inventory"> inventory</Link>
+        </button>
+        <button className="cursor-pointer flex items-center fill-lime-400 bg-lime-300 hover:bg-lime-200 active:border active:border-lime-400 rounded-md duration-100 p-2 mt-6">
+          <Link href="/blog"> create blog</Link>
+        </button>
       </div>
     </>
   );

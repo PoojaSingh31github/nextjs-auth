@@ -11,10 +11,10 @@ import {
   startAfter,
 } from "firebase/firestore";
 import { auth, db } from "./firebase";
-import { AuthDetails } from "./authInfo";
 import { cookies } from "next/headers";
 import { signOut } from "firebase/auth";
 import jwt from "jsonwebtoken";
+import { AuthDetails } from "./classesName/auth/authInfo";
 
 export async function saveAuthDetails(authDetails: AuthDetails) {
   console.log(authDetails);

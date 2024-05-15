@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/button";
 import Input from "@/components/input";
-import { AuthDetails } from "@/lib/authInfo";
 import axios from "axios";
 import { useState } from "react";
 import bcrypt from "bcryptjs";
@@ -14,6 +13,7 @@ import {
 } from "firebase/auth";
 import { auth, provider } from "@/lib/firebase";
 import Link from "next/link";
+import { AuthDetails } from "@/lib/classesName/auth/authInfo";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState<AuthDetails>({
